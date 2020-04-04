@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Thickness -->
+
+    <Thickness x:Key="AllMargin">5,5,5,5</Thickness>
+    <Thickness x:Key="AllX2Margin">10,10,10,10</Thickness>
+    <Thickness x:Key="BottomMargin">0,0,0,5</Thickness>
+    <Thickness x:Key="TopMargin">0,5,0,0</Thickness>
+    <Thickness x:Key="Top2XMargin">0,10,0,0</Thickness>
+    <Thickness x:Key="Top3XMargin">0,15,0,0</Thickness>
+    <Thickness x:Key="Top4XMargin">0,20,0,0</Thickness>
+    <Thickness x:Key="TopBottomMargin">0,5,0,5</Thickness>
+    <Thickness x:Key="LeftMargin">5,0,0,0</Thickness>
+    <Thickness x:Key="Left2XMargin">10,0,0,0</Thickness>
+    <Thickness x:Key="Left3XMargin">15,0,0,0</Thickness>
+    <Thickness x:Key="LeftRightMargin">5,0,5,0</Thickness>
+    <Thickness x:Key="LeftRightBottomMargin">5,0,5,5</Thickness>
+    <Thickness x:Key="LeftTopMargin">5,5,0,0</Thickness>
+    <Thickness x:Key="LeftTopRightMargin">5,5,5,0</Thickness>
+    <Thickness x:Key="LeftTopBottomMargin">5,5,0,5</Thickness>
+    <Thickness x:Key="RightMargin">0,0,5,0</Thickness>
+    <Thickness x:Key="Right2XMargin">0,0,10,0</Thickness>
+    <Thickness x:Key="TopSmallMargin">0,3,0,0</Thickness>
+    <Thickness x:Key="TopRightSmallMargin">0,3,3,0</Thickness>
+    <Thickness x:Key="BottomSmallMargin">0,0,0,3</Thickness>
+
+    <!-- Brushes -->
+
+    <SolidColorBrush x:Key="FrameColor" Color="DarkGray" />
+    <SolidColorBrush x:Key="ActivityColor" Color="#A006B025" />
+    <SolidColorBrush x:Key="InterruptActivityColor" Color="#A0FF0000" />
+    <SolidColorBrush x:Key="CalculatingColor" Color="#FF303030" />
+    <SolidColorBrush x:Key="GroupingColor" Color="#D5DFE5" />
+    <SolidColorBrush x:Key="PanelColor" Color="#05000000" />
+    <SolidColorBrush x:Key="AreaColor" Color="#FFF0F0F0" />
+    <SolidColorBrush x:Key="EnabledColor" Color="Black" />
+    <SolidColorBrush x:Key="DisabledColor" Color="DarkGray" />
+
+</ResourceDictionary>

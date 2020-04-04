@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="TempIsolated.Core.Gui.RootControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TempIsolated.Core.Gui"
+             xmlns:converters="clr-namespace:TempIsolated.Common.Gui.Converters;assembly=TempIsolated.Common.Gui"
+             xmlns:vm="clr-namespace:TempIsolated.Core.ViewModels;assembly=TempIsolated.Core"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=vm:RootVm}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CoreResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+    
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Width="200"
+                    Background="{StaticResource FrameColor}"
+                    Visibility="{Binding HasActiveModes, Converter={x:Static converters:BoolToVisibilityConverter.Instance}, ConverterParameter=inverse}">
+            <local:UserEditorControl DataContext="{Binding UserEditorVm}"
+                                     Margin="{StaticResource AllX2Margin}" />
+
+            <ItemsControl ItemsSource="{Binding ModesCreationCommands}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding}"
+                                Content="{Binding PublicName}"
+                                Margin="{StaticResource AllX2Margin}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+        
+        <ItemsControl ItemsSource="{Binding ActiveModesVms}" />
+
+    </Grid>
+
+</UserControl>
