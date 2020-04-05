@@ -63,14 +63,22 @@
       <DependentUpon>WwwLeaderControl.xaml</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\TempIsolated.Common.Gui\TempIsolated.Common.Gui.csproj">
+      <Project>{76dc3e20-f412-482c-bf14-17e0c090d3fc}</Project>
+      <Name>TempIsolated.Common.Gui</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\TempIsolated.Common\TempIsolated.Common.csproj">
       <Project>{0c9c9265-c2c0-4cc3-903e-d390444f68b5}</Project>
       <Name>TempIsolated.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TempIsolated.Core.Gui\TempIsolated.Core.Gui.csproj">
+      <Project>{93b34e4a-3311-4f18-8b9a-6e3a3faad446}</Project>
+      <Name>TempIsolated.Core.Gui</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\TempIsolated.Core\TempIsolated.Core.csproj">
       <Project>{e1464944-be68-4956-ac82-d3bbffc163ac}</Project>

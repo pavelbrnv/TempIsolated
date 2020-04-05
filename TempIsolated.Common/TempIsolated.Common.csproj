@@ -42,6 +42,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\ExternalChangerCollection.cs" />
+    <Compile Include="Collections\ExternalChangerCollectionT.cs" />
+    <Compile Include="Collections\ICollectionChanger.cs" />
     <Compile Include="Extensions\ActionCommand.cs" />
     <Compile Include="Extensions\CollectionChangedEventArgs.cs" />
     <Compile Include="Extensions\Contracts.cs" />

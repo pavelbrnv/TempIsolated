@@ -11,6 +11,10 @@ namespace TempIsolated.Games.Www.ViewModels
 
         public string Title => Question.Title;
 
+        public string ThinkingTime => Question.ThinkingTime.ToString();
+
+        public string FillTime => Question.FillTime.ToString();
+
         public bool IsSelected
         {
             get => isSelected;

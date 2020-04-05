@@ -21,6 +21,16 @@ namespace TempIsolated.Common.Extensions
             PublicName = publicName;
         }
 
+        public ActionCommand(Action execute, string publicName)
+            : this(() => true, execute, publicName)
+        {
+        }
+
+        public ActionCommand(Action execute)
+            : this(execute, string.Empty)
+        {
+        }
+
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }

@@ -37,4 +37,41 @@
     <SolidColorBrush x:Key="EnabledColor" Color="Black" />
     <SolidColorBrush x:Key="DisabledColor" Color="DarkGray" />
 
+    <!-- Column header templates -->
+
+    <DataTemplate x:Key="NarrowColumnHeaderTemplate">
+        <TextBlock Text="{Binding}"
+                   Margin="{StaticResource LeftRightMargin}"
+                   MinWidth="10"
+                   Width="Auto" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="NormalColumnHeaderTemplate">
+        <TextBlock Text="{Binding}"
+                   Margin="{StaticResource LeftRightMargin}"
+                   MinWidth="70"
+                   Width="Auto" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="MediumColumnHeaderTemplate">
+        <TextBlock Text="{Binding}"
+                   Margin="{StaticResource LeftRightMargin}"
+                   MinWidth="90"
+                   Width="Auto" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="SingleWideColumnHeaderTemplate">
+        <TextBlock Text="{Binding}"
+                   Margin="{StaticResource LeftRightMargin}"
+                   MinWidth="120"
+                   Width="Auto" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="DoubleWideColumnHeaderTemplate">
+        <TextBlock Text="{Binding}"
+                   Margin="{StaticResource LeftRightMargin}"
+                   MinWidth="240"
+                   Width="Auto" />
+    </DataTemplate>
+
 </ResourceDictionary>

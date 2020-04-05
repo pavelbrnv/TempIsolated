@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 using TempIsolated.Common.Extensions;
 using TempIsolated.Common.Informing;
 using TempIsolated.Core;
@@ -19,7 +20,7 @@ namespace TempIsolated.Games.Www.ViewModels
 
         private bool disposed;
 
-        private readonly object serverSync = new object();
+        private readonly object playersSync = new object();
 
         #endregion
 
@@ -30,6 +31,8 @@ namespace TempIsolated.Games.Www.ViewModels
         public IReadOnlyList<SelectableQuestionVm> QuestionsVms { get; }
 
         public ReadOnlyObservableCollection<SelectablePlayerVm> PlayersVms { get; }
+
+        public ICommand CommandPlaySelectedQuestions { get; }
 
         #endregion
 
@@ -46,6 +49,8 @@ namespace TempIsolated.Games.Www.ViewModels
             QuestionsVms = leader.Questions.Select(question => new SelectableQuestionVm(question)).ToArray();
 
             PlayersVms = new ReadOnlyObservableCollection<SelectablePlayerVm>(playersVms);
+
+            CommandPlaySelectedQuestions = new ActionCommand(PlaySelectedQuestions);
 
             Initialize();
         }
@@ -70,6 +75,33 @@ namespace TempIsolated.Games.Www.ViewModels
             }
         }
 
+        private void PlaySelectedQuestions()
+        {
+            User[] selectedPlayers;
+            lock (playersSync)
+            {
+                if (disposed)
+                {
+                    return;
+                }
+
+                selectedPlayers = playersVms
+                    .Where(playerVm => playerVm.IsSelected)
+                    .Select(playerVm => playerVm.Player)
+                    .ToArray();
+            }
+
+            var selectedQuestions = QuestionsVms
+                .Where(questionVm => questionVm.IsSelected)
+                .Select(questionVm => questionVm.Question)
+                .ToArray();
+
+            foreach (var question in selectedQuestions)
+            {
+                Leader.PlayQuestion(question, selectedPlayers);
+            }
+        }
+
         #endregion
 
         #region Sunscribes and handlers
@@ -88,7 +120,7 @@ namespace TempIsolated.Games.Www.ViewModels
 
         private void ServerPlayersChanged(object sender, CollectionChangedEventArgs<User> e)
         {
-            lock (serverSync)
+            lock (playersSync)
             {
                 if (disposed)
                 {
@@ -119,7 +151,7 @@ namespace TempIsolated.Games.Www.ViewModels
 
         protected override void DisposeResources()
         {
-            lock (serverSync)
+            lock (playersSync)
             {
                 if (disposed)
                 {

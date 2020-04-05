@@ -4,9 +4,81 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:TempIsolated.Games.Www.ViewModels;assembly=TempIsolated.Games.Www"
+             xmlns:converters="clr-namespace:TempIsolated.Common.Gui.Converters;assembly=TempIsolated.Common.Gui"
+             xmlns:p="clr-namespace:TempIsolated.Games.Www.Gui.Properties"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:WwwLeaderVm}">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/TempIsolated.Core.Gui;component/CoreResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
-        <TextBlock Text="Www leader" />
-    </Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5*" />
+            <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ListView Grid.Column="0"
+                  ItemsSource="{Binding QuestionsVms}"
+                  Margin="{StaticResource AllMargin}">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <RadioButton IsChecked="{Binding IsSelected}" GroupName="QuestionsSelectionGroup" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="{x:Static p:Resources.Question}"
+                                        HeaderTemplate="{StaticResource DoubleWideColumnHeaderTemplate}"
+                                        DisplayMemberBinding="{Binding Title}" />
+
+                        <GridViewColumn Header="{x:Static p:Resources.ThinkingTime}"
+                                        HeaderTemplate="{StaticResource NormalColumnHeaderTemplate}"
+                                        DisplayMemberBinding="{Binding ThinkingTime}" />
+
+                        <GridViewColumn Header="{x:Static p:Resources.FillTime}"
+                                        HeaderTemplate="{StaticResource NormalColumnHeaderTemplate}"
+                                        DisplayMemberBinding="{Binding FillTime}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <ListView Grid.Column="1"
+                  ItemsSource="{Binding PlayersVms, Converter={x:Static converters:DispatcherCollectionConverter.Instance}}"
+                  Margin="{StaticResource AllMargin}">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn HeaderTemplate="{StaticResource NarrowColumnHeaderTemplate}">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsSelected}" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="{x:Static p:Resources.Player}"
+                                        HeaderTemplate="{StaticResource SingleWideColumnHeaderTemplate}"
+                                        DisplayMemberBinding="{Binding Name}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <Button Grid.Column="2"
+                Command="{Binding CommandPlaySelectedQuestions}"
+                Content="{x:Static p:Resources.PlayQuestion}"
+                Margin="{StaticResource AllMargin}" />
+    </Grid>    
 </UserControl>
