@@ -58,6 +58,8 @@
     <Compile Include="QuestionDrawing.cs" />
     <Compile Include="QuestionAnswers.cs" />
     <Compile Include="Questions\TextQuestion.cs" />
+    <Compile Include="ViewModels\SelectablePlayerVm.cs" />
+    <Compile Include="ViewModels\SelectableQuestionVm.cs" />
     <Compile Include="ViewModels\WwwPlayerVm.cs" />
     <Compile Include="ViewModels\WwwLeaderVm.cs" />
     <Compile Include="WwwLeader.cs" />

@@ -26,11 +26,11 @@ namespace TempIsolated.Games.Www
 
         public IReadOnlyList<Question> Questions { get; } = new Question[]
         {
-            new TextQuestion("Чему равно 1 + 1?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15)),
-            new TextQuestion("Чему равно 2 + 2?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15)),
-            new TextQuestion("Чему равно 3 + 3?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15)),
-            new TextQuestion("Чему равно 4 + 4?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15)),
-            new TextQuestion("Чему равно 5 + 5?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15))
+            new TextQuestion("Вопрос 1", "Чему равно 1 + 1?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15)),
+            new TextQuestion("Вопрос 2", "Чему равно 2 + 2?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15)),
+            new TextQuestion("Вопрос 3", "Чему равно 3 + 3?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15)),
+            new TextQuestion("Вопрос 4", "Чему равно 4 + 4?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15)),
+            new TextQuestion("Вопрос 5", "Чему равно 5 + 5?", TimeSpan.FromMinutes(1), TimeSpan.FromSeconds(15))
         };
 
         public IReadOnlyList<QuestionDrawing> Drawings

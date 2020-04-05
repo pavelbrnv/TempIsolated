@@ -40,7 +40,6 @@
         </StackPanel>
 
         <ItemsControl ItemsSource="{Binding ActiveModesVms}" />
-
     </Grid>
 
 </UserControl>
