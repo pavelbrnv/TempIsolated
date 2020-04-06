@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TempIsolated.Common.Extensions;
 using TempIsolated.Common.Informing;
 using TempIsolated.Core.ViewModels;
+using TempIsolated.Games.Www.Interaction.ViewModels;
 
 namespace TempIsolated.Games.Www.ViewModels
 {
@@ -14,6 +15,12 @@ namespace TempIsolated.Games.Www.ViewModels
         #region Fields
 
         private readonly ILogger logger;
+
+        #endregion
+
+        #region Properties
+
+        public GameClientVm ClientVm { get; }
 
         #endregion
 
@@ -26,6 +33,8 @@ namespace TempIsolated.Games.Www.ViewModels
             Contracts.Requires(logger != null);
 
             this.logger = logger;
+
+            ClientVm = InteractionVmsCreator.CreateVm(player.Client);
         }
 
         #endregion

@@ -46,7 +46,13 @@
     <Compile Include="DrawingState.cs" />
     <Compile Include="IGameClient.cs" />
     <Compile Include="IGameServer.cs" />
-    <Compile Include="Interaction\DummyGameServer.cs" />
+    <Compile Include="Interaction\InternalGameClient.cs" />
+    <Compile Include="Interaction\InternalGameServer.cs" />
+    <Compile Include="Interaction\ViewModels\GameClientVm.cs" />
+    <Compile Include="Interaction\ViewModels\GameServerVm.cs" />
+    <Compile Include="Interaction\ViewModels\InteractionVmsCreator.cs" />
+    <Compile Include="Interaction\ViewModels\InternalGameClientVm.cs" />
+    <Compile Include="Interaction\ViewModels\InternalGameServerVm.cs" />
     <Compile Include="PlayerAnswer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

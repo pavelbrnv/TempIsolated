@@ -20,19 +20,24 @@ namespace TempIsolated.Gui
 
             Closed += WindowClosed;
 
-            var logger = new InfoWindowLogger();
-
-            var modesFactories = new IModeFactory[]
-            {
-                new WwwLeaderFactory(new DummyGameServer(), logger),
-                new WwwPlayerFactory(logger)
-            };
-
             root = new Root(new Storage());
-            rootVm = new RootVm(root, modesFactories);
+            rootVm = new RootVm(root, GetModesFactories());
             rootControl = new RootControl() { DataContext = rootVm };
 
             Content = rootControl;
+        }
+
+        private IModeFactory[] GetModesFactories()
+        {
+            var logger = new InfoWindowLogger();
+
+            var server = new InternalGameServer();
+
+            return new IModeFactory[]
+            {
+                new WwwLeaderFactory(() => server, logger),
+                new WwwPlayerFactory(() => new InternalGameClient(server, root.User), logger)
+            };
         }
 
         private void WindowClosed(object sender, EventArgs e)

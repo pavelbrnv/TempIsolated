@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TempIsolated.Games.Www
 {
-    public interface IGameClient
+    public interface IGameClient : IDisposable
     {
     }
 }

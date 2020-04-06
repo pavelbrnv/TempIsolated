@@ -6,6 +6,7 @@ using TempIsolated.Common.Extensions;
 using TempIsolated.Common.Informing;
 using TempIsolated.Core;
 using TempIsolated.Core.ViewModels;
+using TempIsolated.Games.Www.Interaction.ViewModels;
 
 namespace TempIsolated.Games.Www.ViewModels
 {
@@ -28,6 +29,8 @@ namespace TempIsolated.Games.Www.ViewModels
 
         public WwwLeader Leader => (WwwLeader)Model;
 
+        public GameServerVm ServerVm { get; }
+
         public IReadOnlyList<SelectableQuestionVm> QuestionsVms { get; }
 
         public ReadOnlyObservableCollection<SelectablePlayerVm> PlayersVms { get; }
@@ -45,6 +48,8 @@ namespace TempIsolated.Games.Www.ViewModels
             Contracts.Requires(logger != null);
 
             this.logger = logger;
+
+            ServerVm = InteractionVmsCreator.CreateVm(leader.Server);
 
             QuestionsVms = leader.Questions.Select(question => new SelectableQuestionVm(question)).ToArray();
 

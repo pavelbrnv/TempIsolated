@@ -17,7 +17,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <!--<Grid>
         <StackPanel Background="{StaticResource FrameColor}"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -40,6 +40,39 @@
         </StackPanel>
 
         <ItemsControl ItemsSource="{Binding ActiveModesVms}" />
-    </Grid>
+    </Grid>-->
+
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top"
+                    Background="{StaticResource FrameColor}">
+            <local:UserEditorControl DataContext="{Binding UserEditorVm}"
+                                     Margin="{StaticResource AllX2Margin}" />
+
+            <ItemsControl ItemsSource="{Binding ModesCreationCommands}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Command="{Binding}"
+                                Content="{Binding PublicName}"
+                                Margin="{StaticResource AllX2Margin}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
+        <ScrollViewer>
+            <ItemsControl ItemsSource="{Binding ActiveModesVms}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="{StaticResource AllMargin}"
+                                Padding="{StaticResource AllMargin}"
+                                BorderThickness="2"
+                                BorderBrush="Black">
+                            <ContentPresenter Content="{Binding}" />
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </ScrollViewer>
+    </DockPanel>
 
 </UserControl>

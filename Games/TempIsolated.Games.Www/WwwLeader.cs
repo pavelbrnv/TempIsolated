@@ -98,6 +98,8 @@ namespace TempIsolated.Games.Www
             lock (sync)
             {
                 Parallel.ForEach(drawings, drawing => drawing.Dispose());
+
+                Server.Dispose();
             }
         }
 

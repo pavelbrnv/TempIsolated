@@ -15,13 +15,24 @@ namespace TempIsolated.Games.Www
 
         private readonly ILogger logger;
 
+        private readonly object sync = new object();
+
+        #endregion
+
+        #region Properties
+
+        public IGameClient Client { get; }
+
         #endregion
 
         #region Ctor
 
-        public WwwPlayer(ILogger logger)
+        public WwwPlayer(IGameClient client, ILogger logger)
         {
+            Contracts.Requires(client != null);
             Contracts.Requires(logger != null);
+
+            Client = client;
 
             this.logger = logger;
         }
@@ -32,6 +43,10 @@ namespace TempIsolated.Games.Www
 
         public override void Dispose()
         {
+            lock (sync)
+            {
+                Client.Dispose();
+            }
         }
 
         #endregion

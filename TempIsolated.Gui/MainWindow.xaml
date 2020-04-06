@@ -6,7 +6,9 @@
         xmlns:p="clr-namespace:TempIsolated.Gui.Properties"
         mc:Ignorable="d"
         xmlns:wwwVms="clr-namespace:TempIsolated.Games.Www.ViewModels;assembly=TempIsolated.Games.Www"
+        xmlns:wwwInteractionVms="clr-namespace:TempIsolated.Games.Www.Interaction.ViewModels;assembly=TempIsolated.Games.Www"
         xmlns:wwwControls="clr-namespace:TempIsolated.Games.Www.Gui;assembly=TempIsolated.Games.Www.Gui"
+        xmlns:wwwInteractionControls="clr-namespace:TempIsolated.Games.Www.Gui.Interaction;assembly=TempIsolated.Games.Www.Gui"
         Title="{x:Static p:Resources.TempIsolated}"
         Height="800"
         Width="1200"
@@ -19,7 +21,14 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type wwwVms:WwwPlayerVm}">
                 <wwwControls:WwwPlayerControl />
-            </DataTemplate>            
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type wwwInteractionVms:InternalGameServerVm}">
+                <wwwInteractionControls:InternalGameServerControl />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type wwwInteractionVms:InternalGameClientVm}">
+                <wwwInteractionControls:InternalGameClientControl />
+            </DataTemplate>
         </ResourceDictionary>
     </Window.Resources>
 

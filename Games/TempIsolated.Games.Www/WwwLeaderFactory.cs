@@ -9,25 +9,25 @@ namespace TempIsolated.Games.Www
 {
     public sealed class WwwLeaderFactory : IModeFactory
     {
-        private readonly IGameServer server;
+        private readonly Func<IGameServer> createServer;
         private readonly ILogger logger;
 
         public string Name => Properties.Resources.Leader;
 
         public Type ModeType => typeof(WwwLeader);
 
-        public WwwLeaderFactory(IGameServer server, ILogger logger)
+        public WwwLeaderFactory(Func<IGameServer> createServer, ILogger logger)
         {
-            Contracts.Requires(server != null);
+            Contracts.Requires(createServer != null);
             Contracts.Requires(logger != null);
 
-            this.server = server;
+            this.createServer = createServer;
             this.logger = logger;
         }
 
         public Mode Create()
         {
-            return new WwwLeader(server, logger);
+            return new WwwLeader(createServer(), logger);
         }
 
         public ModeVm CreateVm(Mode mode)
