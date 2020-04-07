@@ -17,11 +17,17 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <DockPanel>
-        <ContentPresenter DockPanel.Dock="Top"
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        
+        <ContentPresenter Grid.Row="0"
                           Content="{Binding ServerVm}" />
 
-        <Grid>
+        <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="3*" />
@@ -85,5 +91,22 @@
                     Content="{x:Static p:Resources.PlayQuestion}"
                     Margin="{StaticResource AllMargin}" />
         </Grid>
-    </DockPanel>
+
+        <Grid Grid.Row="2">
+            <ListView ItemsSource="{Binding DrawingsVms, Converter={x:Static converters:DispatcherCollectionConverter.Instance}}"
+                      SelectedItem="{Binding SelectedDrawingVm}"
+                      SelectionMode="Single"
+                      Margin="{StaticResource AllMargin}">
+                <ListView.View>
+                    <GridView>
+                        <GridView.Columns>
+                            <GridViewColumn Header="{x:Static p:Resources.Question}"
+                                            HeaderTemplate="{StaticResource SingleWideColumnHeaderTemplate}"
+                                            DisplayMemberBinding="{Binding Title}" />
+                        </GridView.Columns>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
 </UserControl>

@@ -14,7 +14,6 @@ namespace TempIsolated.Games.Www
         #region Fields
 
         private readonly IGameServer server;
-        private readonly Question question;
         private readonly IReadOnlyCollection<User> players;
         private readonly ILogger logger;
 
@@ -30,6 +29,8 @@ namespace TempIsolated.Games.Www
         #endregion
 
         #region Properties
+
+        public Question Question { get; }
 
         public QuestionAnswers Answers { get; }
 
@@ -56,7 +57,7 @@ namespace TempIsolated.Games.Www
             Contracts.Requires(logger != null);
 
             this.server = server;
-            this.question = question;
+            Question = question;
             this.players = players;
             this.logger = logger;
 
@@ -141,7 +142,7 @@ namespace TempIsolated.Games.Www
         {
             try
             {
-                var answer = await server.AskPlayer(player, question, cancellationToken);
+                var answer = await server.AskPlayer(player, Question, cancellationToken);
                 Answers.SetPlayerAnswer(player, answer);
             }
             catch (OperationCanceledException)

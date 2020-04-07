@@ -17,6 +17,9 @@ namespace TempIsolated.Games.Www.ViewModels
         private readonly Dictionary<User, SelectablePlayerVm> playersVmsByPlayers = new Dictionary<User, SelectablePlayerVm>();
         private readonly ObservableCollection<SelectablePlayerVm> playersVms = new ObservableCollection<SelectablePlayerVm>();
 
+        private readonly ObservableCollection<QuestionDrawingVm> drawingsVms = new ObservableCollection<QuestionDrawingVm>();
+        private QuestionDrawingVm selectedDrawingVm;
+
         private readonly ILogger logger;
 
         private bool disposed;
@@ -34,6 +37,21 @@ namespace TempIsolated.Games.Www.ViewModels
         public IReadOnlyList<SelectableQuestionVm> QuestionsVms { get; }
 
         public ReadOnlyObservableCollection<SelectablePlayerVm> PlayersVms { get; }
+
+        public ReadOnlyObservableCollection<QuestionDrawingVm> DrawingsVms { get; }
+
+        public QuestionDrawingVm SelectedDrawingVm
+        {
+            get => selectedDrawingVm;
+            set
+            {
+                if (selectedDrawingVm != value)
+                {
+                    selectedDrawingVm = value;
+                    RaisePropertyChanged(nameof(SelectedDrawingVm));
+                }
+            }
+        }
 
         public ICommand CommandPlaySelectedQuestions { get; }
 
@@ -54,6 +72,8 @@ namespace TempIsolated.Games.Www.ViewModels
             QuestionsVms = leader.Questions.Select(question => new SelectableQuestionVm(question)).ToArray();
 
             PlayersVms = new ReadOnlyObservableCollection<SelectablePlayerVm>(playersVms);
+
+            DrawingsVms = new ReadOnlyObservableCollection<QuestionDrawingVm>(drawingsVms);
 
             CommandPlaySelectedQuestions = new ActionCommand(PlaySelectedQuestions);
 
@@ -78,6 +98,12 @@ namespace TempIsolated.Games.Www.ViewModels
                 playersVms.Remove(playerVm);
                 playersVmsByPlayers.Remove(player);
             }
+        }
+
+        private void AddDrawingVm(QuestionDrawing drawing)
+        {
+            var drawingVm = new QuestionDrawingVm(drawing);
+            drawingsVms.Add(drawingVm);
         }
 
         private void PlaySelectedQuestions()
@@ -116,10 +142,12 @@ namespace TempIsolated.Games.Www.ViewModels
             if (subscribe)
             {
                 Leader.Server.PlayersChanged += ServerPlayersChanged;
+                Leader.DrawingAdded += LeaderDrawingAdded;
             }
             else
             {
                 Leader.Server.PlayersChanged -= ServerPlayersChanged;
+                Leader.DrawingAdded -= LeaderDrawingAdded;
             }
         }
 
@@ -150,6 +178,11 @@ namespace TempIsolated.Games.Www.ViewModels
             }
         }
 
+        private void LeaderDrawingAdded(object sender, ItemEventArgs<QuestionDrawing> e)
+        {
+            AddDrawingVm(e.Item);
+        }
+
         #endregion
 
         #region Disposing
@@ -163,12 +196,21 @@ namespace TempIsolated.Games.Www.ViewModels
                     return;
                 }
                 disposed = true;
+            }
 
-                foreach (var player in playersVmsByPlayers.Keys.ToArray())
-                {
-                    RemovePlayerVm(player);
-                }
-            }    
+            SelectedDrawingVm = null;
+
+            var currentDrawingsVms = drawingsVms.ToArray();
+            drawingsVms.Clear();
+            foreach (var drawingVm in currentDrawingsVms)
+            {
+                drawingVm.Dispose();
+            }
+
+            foreach (var player in playersVmsByPlayers.Keys.ToArray())
+            {
+                RemovePlayerVm(player);
+            }
 
             base.DisposeResources();
         }
