@@ -132,6 +132,12 @@
   <data name="Player" xml:space="preserve">
     <value>Игрок</value>
   </data>
+  <data name="StartDrawing" xml:space="preserve">
+    <value>Начать розыгрыш</value>
+  </data>
+  <data name="StopDrawing" xml:space="preserve">
+    <value>Прервать розыгрыш</value>
+  </data>
   <data name="Waiting" xml:space="preserve">
     <value>Ожидание</value>
   </data>

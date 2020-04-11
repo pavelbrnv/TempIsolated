@@ -106,30 +106,28 @@
                 <ColumnDefinition Width="5*" />
             </Grid.ColumnDefinitions>
 
-            <ListView Grid.Column="0"
+            <ListBox Grid.Column="0"
                       ItemsSource="{Binding DrawingsVms, Converter={x:Static converters:DispatcherCollectionConverter.Instance}}"
                       SelectedItem="{Binding SelectedDrawingVm}"
                       SelectionMode="Single"
                       Margin="{StaticResource AllMargin}">
-                <ListView.View>
-                    <GridView>
-                        <GridView.Columns>
-                            <GridViewColumn Header="{x:Static p:Resources.Question}"
-                                            HeaderTemplate="{StaticResource SingleWideColumnHeaderTemplate}"
-                                            DisplayMemberBinding="{Binding Title}" />
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
 
             <GridSplitter Grid.Column="1"
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Center"
                       Width="{StaticResource SmallMarginStep}" />
 
-            <local:QuestionDrawingControl Grid.Column="2"
-                                          DataContext="{Binding SelectedDrawingVm}"
-                                          Margin="{StaticResource AllMargin}" />
+            <Grid Grid.Column="2"
+                  Margin="{StaticResource AllMargin}"
+                  Visibility="{Binding SelectedDrawingVm, Converter={x:Static converters:NullToVisibilityConverter.Instance}}">
+                <local:QuestionDrawingControl DataContext="{Binding SelectedDrawingVm}" />
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>

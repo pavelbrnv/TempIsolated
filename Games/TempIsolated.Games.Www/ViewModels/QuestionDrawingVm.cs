@@ -18,6 +18,14 @@ namespace TempIsolated.Games.Www.ViewModels
 
         public string State => Properties.Resources.ResourceManager.TryLocalize(Model.State);
 
+        public ActionCommand CommandStartDrawing { get; }
+
+        public ActionCommand CommandStopDrawing { get; }
+
+        public bool IsStartDrawingAvailable => Model.State == DrawingState.Waiting;
+
+        public bool IsStopDrawingAvailable => Model.State == DrawingState.Drawing;
+
         #endregion
 
         #region Ctor
@@ -25,6 +33,32 @@ namespace TempIsolated.Games.Www.ViewModels
         public QuestionDrawingVm(QuestionDrawing drawing)
             : base(drawing)
         {
+            Contracts.Requires(drawing != null);
+
+            CommandStartDrawing = new ActionCommand(StartDrawing, Properties.Resources.StartDrawing);
+            CommandStopDrawing = new ActionCommand(StopDrawing, Properties.Resources.StopDrawing);
+
+            Initialize();
+        }
+
+        #endregion
+
+        #region Commands actions
+
+        private void StartDrawing()
+        {
+            if (IsStartDrawingAvailable)
+            {
+                Model.StartDrawing();
+            }
+        }
+
+        private void StopDrawing()
+        {
+            if (IsStopDrawingAvailable)
+            {
+                Model.StopDrawing();
+            }
         }
 
         #endregion
@@ -46,6 +80,8 @@ namespace TempIsolated.Games.Www.ViewModels
         private void ModelStateChanged(object sender, ValueChangedEventArgs<DrawingState> e)
         {
             RaisePropertyChanged(nameof(State));
+            RaisePropertyChanged(nameof(IsStartDrawingAvailable));
+            RaisePropertyChanged(nameof(IsStopDrawingAvailable));
         }
 
         #endregion

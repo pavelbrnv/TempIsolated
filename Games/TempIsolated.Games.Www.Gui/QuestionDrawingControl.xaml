@@ -5,6 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:p="clr-namespace:TempIsolated.Games.Www.Gui.Properties"
              xmlns:vm="clr-namespace:TempIsolated.Games.Www.ViewModels;assembly=TempIsolated.Games.Www"
+             xmlns:converters="clr-namespace:TempIsolated.Common.Gui.Converters;assembly=TempIsolated.Common.Gui"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:QuestionDrawingVm}">
 
@@ -17,43 +18,48 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <TextBlock Grid.Row="0"
-                       Grid.Column="0"
-                       Text="{x:Static p:Resources.Title}"
-                       Margin="{StaticResource AllMargin}" />
-            <TextBlock Grid.Row="0"
-                       Grid.Column="1"
-                       Text="{Binding Title}"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="{Binding QuestionText}"
+                       FontSize="18"
+                       TextWrapping="Wrap"
                        Margin="{StaticResource AllMargin}" />
 
-            <TextBlock Grid.Row="1"
-                       Grid.Column="0"
-                       Text="{x:Static p:Resources.State}"
-                       Margin="{StaticResource AllMargin}" />
-            <TextBlock Grid.Row="1"
-                       Grid.Column="1"
-                       Text="{Binding State}"
-                       Margin="{StaticResource AllMargin}" />
+            <Grid Height="50">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="2"
-                       Grid.Column="0"
-                       Text="{x:Static p:Resources.Question}"
-                       Margin="{StaticResource AllMargin}" />
-            <TextBlock Grid.Row="2"
-                       Grid.Column="1"
-                       Text="{Binding QuestionText}"
-                       Margin="{StaticResource AllMargin}" />
-        </Grid>        
+                <TextBlock Grid.Column="0"
+                           Text="{Binding State}"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Margin="{StaticResource AllMargin}"
+                           VerticalAlignment="Center" />
+
+                <Button Grid.Column="1"
+                        Command="{Binding CommandStartDrawing}"
+                        Content="{Binding CommandStartDrawing.PublicName}"
+                        Visibility="{Binding IsStartDrawingAvailable, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
+                        Margin="{StaticResource AllMargin}" />
+
+                <Button Grid.Column="1"
+                        Command="{Binding CommandStopDrawing}"
+                        Content="{Binding CommandStopDrawing.PublicName}"
+                        Visibility="{Binding IsStopDrawingAvailable, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
+                        Margin="{StaticResource AllMargin}" />
+            </Grid>
+        </StackPanel>
+
+        <GridSplitter Grid.Column="1"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Center"
+                      Width="{StaticResource SmallMarginStep}" />
     </Grid>
 </UserControl>

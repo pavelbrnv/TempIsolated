@@ -87,9 +87,11 @@ namespace TempIsolated.Games.Www.Interaction
             }
         }
 
-        public Task<Answer> AskPlayer(User player, Question question, CancellationToken cancellationToken)
+        public async Task<Answer> AskPlayer(User player, Question question, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new Answer("dummy answer"));
+            await Task.Delay(5000);
+
+            return new Answer("dummy answer");
         }
 
         #endregion

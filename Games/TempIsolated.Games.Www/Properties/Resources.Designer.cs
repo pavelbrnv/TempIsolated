@@ -106,6 +106,24 @@ namespace TempIsolated.Games.Www.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Начать розыгрыш.
+        /// </summary>
+        public static string StartDrawing {
+            get {
+                return ResourceManager.GetString("StartDrawing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Прервать розыгрыш.
+        /// </summary>
+        public static string StopDrawing {
+            get {
+                return ResourceManager.GetString("StopDrawing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ожидание.
         /// </summary>
         public static string Waiting {

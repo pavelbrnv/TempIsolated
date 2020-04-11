@@ -51,6 +51,7 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\CollectionToVisibilityConverter.cs" />
     <Compile Include="Converters\DispatcherCollectionConverter.cs" />
+    <Compile Include="Converters\NullToVisibilityConverter .cs" />
     <Compile Include="Informing\InfoWindow.xaml.cs">
       <DependentUpon>InfoWindow.xaml</DependentUpon>
     </Compile>
