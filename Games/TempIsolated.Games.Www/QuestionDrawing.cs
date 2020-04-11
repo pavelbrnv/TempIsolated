@@ -61,7 +61,7 @@ namespace TempIsolated.Games.Www
             this.players = players;
             this.logger = logger;
 
-            Answers = new QuestionAnswers(question);
+            Answers = new QuestionAnswers(question, players);
         }
 
         #endregion

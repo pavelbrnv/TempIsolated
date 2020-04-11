@@ -6,6 +6,7 @@
              xmlns:p="clr-namespace:TempIsolated.Games.Www.Gui.Properties"
              xmlns:vm="clr-namespace:TempIsolated.Games.Www.ViewModels;assembly=TempIsolated.Games.Www"
              xmlns:converters="clr-namespace:TempIsolated.Common.Gui.Converters;assembly=TempIsolated.Common.Gui"
+             xmlns:local="clr-namespace:TempIsolated.Games.Www.Gui"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:QuestionDrawingVm}">
 
@@ -61,5 +62,9 @@
                       VerticalAlignment="Stretch"
                       HorizontalAlignment="Center"
                       Width="{StaticResource SmallMarginStep}" />
+
+        <local:QuestionAnswersControl Grid.Column="2"
+                                      DataContext="{Binding AnswersVm}"
+                                      Margin="{StaticResource LeftTopBottomMargin}" />
     </Grid>
 </UserControl>

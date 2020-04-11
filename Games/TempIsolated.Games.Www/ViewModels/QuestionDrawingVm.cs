@@ -26,6 +26,8 @@ namespace TempIsolated.Games.Www.ViewModels
 
         public bool IsStopDrawingAvailable => Model.State == DrawingState.Drawing;
 
+        public QuestionAnswersVm AnswersVm { get; }
+
         #endregion
 
         #region Ctor
@@ -37,6 +39,8 @@ namespace TempIsolated.Games.Www.ViewModels
 
             CommandStartDrawing = new ActionCommand(StartDrawing, Properties.Resources.StartDrawing);
             CommandStopDrawing = new ActionCommand(StopDrawing, Properties.Resources.StopDrawing);
+
+            AnswersVm = new QuestionAnswersVm(drawing.Answers);
 
             Initialize();
         }
@@ -82,6 +86,17 @@ namespace TempIsolated.Games.Www.ViewModels
             RaisePropertyChanged(nameof(State));
             RaisePropertyChanged(nameof(IsStartDrawingAvailable));
             RaisePropertyChanged(nameof(IsStopDrawingAvailable));
+        }
+
+        #endregion
+
+        #region Disposing
+
+        protected override void DisposeResources()
+        {
+            AnswersVm.Dispose();
+
+            base.DisposeResources();
         }
 
         #endregion

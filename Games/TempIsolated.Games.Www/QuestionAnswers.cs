@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TempIsolated.Common.Extensions;
 using TempIsolated.Core;
@@ -10,9 +9,7 @@ namespace TempIsolated.Games.Www
     {
         #region Fields
 
-        private readonly Dictionary<User, PlayerAnswer> answersByPlayers = new Dictionary<User, PlayerAnswer>();
-
-        private readonly object sync = new object();
+        private readonly Dictionary<User, PlayerAnswer> answersByPlayers;
 
         #endregion
 
@@ -20,42 +17,20 @@ namespace TempIsolated.Games.Www
 
         public Question Question { get; }
 
-        public IReadOnlyCollection<PlayerAnswer> Answers
-        {
-            get
-            {
-                lock (sync)
-                {
-                    return answersByPlayers.Values.ToArray();
-                }
-            }
-        }
+        public IReadOnlyCollection<PlayerAnswer> Answers => answersByPlayers.Values;
 
         #endregion
 
         #region Ctor
 
-        public QuestionAnswers(Question question)
+        public QuestionAnswers(Question question, IReadOnlyCollection<User> players)
         {
             Contracts.Requires(question != null);
+            Contracts.Requires(players != null);
 
             Question = question;
-        }
 
-        #endregion
-
-        #region Events
-
-        public event EventHandler<PlayerAnswerReceivedEventArgs> AnswerReceived = delegate { };
-
-        #endregion
-
-        #region Events raisers
-
-        private void OnAnswerReceived(PlayerAnswer playerAnswer)
-        {
-            var args = new PlayerAnswerReceivedEventArgs(playerAnswer);
-            AnswerReceived(this, args);
+            answersByPlayers = players.ToDictionary(player => player, player => new PlayerAnswer(player));
         }
 
         #endregion
@@ -64,27 +39,12 @@ namespace TempIsolated.Games.Www
 
         public void SetPlayerAnswer(User player, Answer answer)
         {
-            var playerAnswer = new PlayerAnswer(player, answer);
-
-            lock (sync)
+            if (answersByPlayers.TryGetValue(player, out var playerAnswer))
             {
-                answersByPlayers[player] = playerAnswer;
-                OnAnswerReceived(playerAnswer);
+                playerAnswer.SetAnswer(answer);
             }
         }
 
         #endregion
-    }
-
-    public sealed class PlayerAnswerReceivedEventArgs : EventArgs
-    {
-        public PlayerAnswer PlayerAnswer { get; }
-
-        public PlayerAnswerReceivedEventArgs(PlayerAnswer playerAnswer)
-        {
-            Contracts.Requires(playerAnswer != null);
-
-            PlayerAnswer = playerAnswer;
-        }
     }
 }

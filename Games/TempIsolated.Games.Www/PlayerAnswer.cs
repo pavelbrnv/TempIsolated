@@ -8,6 +8,7 @@ namespace TempIsolated.Games.Www
     {
         #region Fields
 
+        private Answer answer;
         private AnswerStatus status = AnswerStatus.Unchecked;
 
         #endregion
@@ -16,7 +17,7 @@ namespace TempIsolated.Games.Www
 
         public User Player { get; }
 
-        public Answer Answer { get; }
+        public Answer Answer => answer;
 
         public AnswerStatus Status
         {
@@ -36,13 +37,11 @@ namespace TempIsolated.Games.Www
 
         #region Ctor
 
-        public PlayerAnswer(User player, Answer answer)
+        public PlayerAnswer(User player)
         {
             Contracts.Requires(player != null);
-            Contracts.Requires(answer != null);
 
             Player = player;
-            Answer = answer;
         }
 
         #endregion
@@ -59,6 +58,15 @@ namespace TempIsolated.Games.Www
         {
             var args = new AnswerStatusChangedEventArgs(oldStatus, newStatus);
             StatusChanged(this, args);
+        }
+
+        #endregion
+
+        #region Public methods
+
+        public void SetAnswer(Answer playerAnswer)
+        {
+            // todo
         }
 
         #endregion
