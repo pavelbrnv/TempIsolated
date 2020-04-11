@@ -1,7 +1,13 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib">
 
     <!-- Thickness -->
+
+    <system:Double x:Key="MarginStep">5</system:Double>
+    <system:Double x:Key="MarginX2Step">10</system:Double>
+    <system:Double x:Key="MarginX3Step">15</system:Double>
+    <system:Double x:Key="SmallMarginStep">3</system:Double>
 
     <Thickness x:Key="AllMargin">5,5,5,5</Thickness>
     <Thickness x:Key="AllX2Margin">10,10,10,10</Thickness>

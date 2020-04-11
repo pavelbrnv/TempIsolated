@@ -97,11 +97,29 @@ namespace TempIsolated.Games.Www.Gui.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Состояние.
+        /// </summary>
+        public static string State {
+            get {
+                return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Время обдумывания.
         /// </summary>
         public static string ThinkingTime {
             get {
                 return ResourceManager.GetString("ThinkingTime", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Заголовок.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }

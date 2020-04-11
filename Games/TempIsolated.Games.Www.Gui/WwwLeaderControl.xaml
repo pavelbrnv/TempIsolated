@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:TempIsolated.Games.Www.ViewModels;assembly=TempIsolated.Games.Www"
              xmlns:converters="clr-namespace:TempIsolated.Common.Gui.Converters;assembly=TempIsolated.Common.Gui"
              xmlns:p="clr-namespace:TempIsolated.Games.Www.Gui.Properties"
+             xmlns:local="clr-namespace:TempIsolated.Games.Www.Gui"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:WwwLeaderVm}">
 
@@ -30,6 +31,7 @@
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
@@ -64,7 +66,12 @@
                 </ListView.View>
             </ListView>
 
-            <ListView Grid.Column="1"
+            <GridSplitter Grid.Column="1"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Center"
+                      Width="{StaticResource SmallMarginStep}" />
+
+            <ListView Grid.Column="2"
                       ItemsSource="{Binding PlayersVms, Converter={x:Static converters:DispatcherCollectionConverter.Instance}}"
                       Margin="{StaticResource AllMargin}">
                 <ListView.View>
@@ -86,14 +93,21 @@
                 </ListView.View>
             </ListView>
 
-            <Button Grid.Column="2"
+            <Button Grid.Column="3"
                     Command="{Binding CommandPlaySelectedQuestions}"
                     Content="{x:Static p:Resources.PlayQuestion}"
                     Margin="{StaticResource AllMargin}" />
         </Grid>
 
         <Grid Grid.Row="2">
-            <ListView ItemsSource="{Binding DrawingsVms, Converter={x:Static converters:DispatcherCollectionConverter.Instance}}"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+
+            <ListView Grid.Column="0"
+                      ItemsSource="{Binding DrawingsVms, Converter={x:Static converters:DispatcherCollectionConverter.Instance}}"
                       SelectedItem="{Binding SelectedDrawingVm}"
                       SelectionMode="Single"
                       Margin="{StaticResource AllMargin}">
@@ -107,6 +121,15 @@
                     </GridView>
                 </ListView.View>
             </ListView>
+
+            <GridSplitter Grid.Column="1"
+                      VerticalAlignment="Stretch"
+                      HorizontalAlignment="Center"
+                      Width="{StaticResource SmallMarginStep}" />
+
+            <local:QuestionDrawingControl Grid.Column="2"
+                                          DataContext="{Binding SelectedDrawingVm}"
+                                          Margin="{StaticResource AllMargin}" />
         </Grid>
     </Grid>
 </UserControl>

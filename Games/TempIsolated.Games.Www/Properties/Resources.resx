@@ -120,10 +120,19 @@
   <data name="Connect" xml:space="preserve">
     <value>Подключиться</value>
   </data>
+  <data name="Drawing" xml:space="preserve">
+    <value>Разыгрывается</value>
+  </data>
+  <data name="Drawn" xml:space="preserve">
+    <value>Разыгран</value>
+  </data>
   <data name="Leader" xml:space="preserve">
     <value>Ведущий</value>
   </data>
   <data name="Player" xml:space="preserve">
     <value>Игрок</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>Ожидание</value>
   </data>
 </root>

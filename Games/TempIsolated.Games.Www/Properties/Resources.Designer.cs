@@ -70,6 +70,24 @@ namespace TempIsolated.Games.Www.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Разыгрывается.
+        /// </summary>
+        public static string Drawing {
+            get {
+                return ResourceManager.GetString("Drawing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Разыгран.
+        /// </summary>
+        public static string Drawn {
+            get {
+                return ResourceManager.GetString("Drawn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ведущий.
         /// </summary>
         public static string Leader {
@@ -84,6 +102,15 @@ namespace TempIsolated.Games.Www.Properties {
         public static string Player {
             get {
                 return ResourceManager.GetString("Player", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ожидание.
+        /// </summary>
+        public static string Waiting {
+            get {
+                return ResourceManager.GetString("Waiting", resourceCulture);
             }
         }
     }
