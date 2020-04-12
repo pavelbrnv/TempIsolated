@@ -89,7 +89,7 @@ namespace TempIsolated.Games.Www.Interaction
 
         public async Task<Answer> AskPlayer(User player, Question question, CancellationToken cancellationToken)
         {
-            await Task.Delay(5000);
+            await Task.Delay(5000, cancellationToken);
 
             return new Answer("dummy answer");
         }

@@ -8,8 +8,7 @@ namespace TempIsolated.Games.Www
     {
         #region Fields
 
-        private Answer answer;
-        private AnswerStatus status = AnswerStatus.Unchecked;
+        private bool isAnswerCorrect;
 
         #endregion
 
@@ -17,18 +16,23 @@ namespace TempIsolated.Games.Www
 
         public User Player { get; }
 
-        public Answer Answer => answer;
+        public bool HasAnswer => Answer != null;
 
-        public AnswerStatus Status
+        public Answer Answer { get; private set; }
+
+        public bool IsAnswerCorrect
         {
-            get => status;
+            get => isAnswerCorrect;
             set
             {
-                if (status != value)
+                if (!HasAnswer)
                 {
-                    var oldStatus = status;
-                    status = value;
-                    OnStatusChanged(oldStatus, status);
+                    return;
+                }
+                if (isAnswerCorrect != value)
+                {
+                    isAnswerCorrect = value;
+                    OnIsAnswerCorrectChanged(value);
                 }
             }
         }
@@ -48,16 +52,23 @@ namespace TempIsolated.Games.Www
 
         #region Events
 
-        public event EventHandler<AnswerStatusChangedEventArgs> StatusChanged = delegate { };
+        public event EventHandler AnswerSet = delegate { };
+
+        public event EventHandler<BooleanValueChangedEventArgs> IsAnswerCorrectChanged = delegate { };
 
         #endregion
 
         #region Events raisers
 
-        private void OnStatusChanged(AnswerStatus oldStatus, AnswerStatus newStatus)
+        private void OnAnswerSet()
         {
-            var args = new AnswerStatusChangedEventArgs(oldStatus, newStatus);
-            StatusChanged(this, args);
+            AnswerSet(this, EventArgs.Empty);
+        }
+
+        private void OnIsAnswerCorrectChanged(bool newValue)
+        {
+            var args = new BooleanValueChangedEventArgs(!newValue, newValue);
+            IsAnswerCorrectChanged(this, args);
         }
 
         #endregion
@@ -66,22 +77,15 @@ namespace TempIsolated.Games.Www
 
         public void SetAnswer(Answer playerAnswer)
         {
-            // todo
+            if (HasAnswer)
+            {
+                throw new InvalidOperationException($"Answer for player '{Player.Name}' is already set");
+            }
+
+            Answer = playerAnswer;
+            OnAnswerSet();
         }
 
         #endregion
-    }
-
-    public sealed class AnswerStatusChangedEventArgs : EventArgs
-    {
-        public AnswerStatus OldStatus { get; }
-
-        public AnswerStatus NewStatus { get; }
-
-        public AnswerStatusChangedEventArgs(AnswerStatus oldStatus, AnswerStatus newStatus)
-        {
-            OldStatus = oldStatus;
-            NewStatus = newStatus;
-        }
     }
 }

@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Answer.cs" />
-    <Compile Include="AnswerStatus.cs" />
     <Compile Include="DrawingState.cs" />
     <Compile Include="IGameClient.cs" />
     <Compile Include="IGameServer.cs" />

@@ -17,12 +17,45 @@
     </UserControl.Resources>
 
     <ListView ItemsSource="{Binding AnswersVms}">
+        <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            </Style>
+        </ListView.ItemContainerStyle>
+
         <ListView.View>
             <GridView>
                 <GridView.Columns>
                     <GridViewColumn Header="{x:Static p:Resources.Player}"
-                                            HeaderTemplate="{StaticResource NormalColumnHeaderTemplate}"
-                                            DisplayMemberBinding="{Binding PlayerName}" />
+                                    HeaderTemplate="{StaticResource NormalColumnHeaderTemplate}"
+                                    DisplayMemberBinding="{Binding PlayerName}" />
+
+
+                    <GridViewColumn Header="{x:Static p:Resources.AnswerSet}"
+                                    HeaderTemplate="{StaticResource NormalColumnHeaderTemplate}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding HasAnswer, Mode=OneWay}"
+                                          IsEnabled="False"
+                                          HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Header="{x:Static p:Resources.Answer}"
+                                    HeaderTemplate="{StaticResource SingleWideColumnHeaderTemplate}"
+                                    DisplayMemberBinding="{Binding Answer}" />
+
+                    <GridViewColumn Header="{x:Static p:Resources.AnswerIsCorrect}"
+                                    HeaderTemplate="{StaticResource NormalColumnHeaderTemplate}">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsAnswerCorrect}"
+                                          IsEnabled="{Binding HasAnswer}"
+                                          HorizontalAlignment="Center" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView.Columns>
             </GridView>
         </ListView.View>

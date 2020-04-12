@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TempIsolated.Common.Extensions;
 using TempIsolated.Common.Extensions.ViewModels;
 
 namespace TempIsolated.Games.Www.ViewModels
@@ -12,6 +9,16 @@ namespace TempIsolated.Games.Www.ViewModels
         #region Properties
 
         public string PlayerName => Model.Player.Name;
+
+        public bool HasAnswer => Model.HasAnswer;
+
+        public string Answer => Model.Answer?.Text ?? string.Empty;
+
+        public bool IsAnswerCorrect
+        {
+            get => Model.IsAnswerCorrect;
+            set => Model.IsAnswerCorrect = value;
+        }
 
         #endregion
 
@@ -31,12 +38,25 @@ namespace TempIsolated.Games.Www.ViewModels
         {
             if (subscribe)
             {
-
+                Model.AnswerSet += ModelAnswerSet;
+                Model.IsAnswerCorrectChanged += ModelIsAnswerCorrectChanged;
             }
             else
             {
-
+                Model.AnswerSet -= ModelAnswerSet;
+                Model.IsAnswerCorrectChanged -= ModelIsAnswerCorrectChanged;
             }
+        }
+
+        private void ModelAnswerSet(object sender, EventArgs e)
+        {
+            RaisePropertyChanged(nameof(HasAnswer));
+            RaisePropertyChanged(nameof(Answer));
+        }
+
+        private void ModelIsAnswerCorrectChanged(object sender, BooleanValueChangedEventArgs e)
+        {
+            RaisePropertyChanged(nameof(IsAnswerCorrect));
         }
 
         #endregion

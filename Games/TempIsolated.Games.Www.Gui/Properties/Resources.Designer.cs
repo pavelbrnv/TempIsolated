@@ -61,6 +61,33 @@ namespace TempIsolated.Games.Www.Gui.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ответ.
+        /// </summary>
+        public static string Answer {
+            get {
+                return ResourceManager.GetString("Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ответ правильный.
+        /// </summary>
+        public static string AnswerIsCorrect {
+            get {
+                return ResourceManager.GetString("AnswerIsCorrect", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ответ получен.
+        /// </summary>
+        public static string AnswerSet {
+            get {
+                return ResourceManager.GetString("AnswerSet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Время заполнения.
         /// </summary>
         public static string FillTime {
