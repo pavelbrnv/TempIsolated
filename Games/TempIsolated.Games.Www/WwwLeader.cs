@@ -12,6 +12,7 @@ namespace TempIsolated.Games.Www
         #region Fields
 
         private readonly List<QuestionDrawing> drawings = new List<QuestionDrawing>();
+        private GameScore score;
 
         private readonly ILogger logger;
 
@@ -43,6 +44,17 @@ namespace TempIsolated.Games.Www
             }
         }
 
+        public GameScore Score
+        {
+            get
+            {
+                lock (sync)
+                {
+                    return score;
+                }
+            }
+        }
+
         #endregion
 
         #region Ctor
@@ -55,6 +67,8 @@ namespace TempIsolated.Games.Www
             Server = server;
 
             this.logger = logger;
+
+            score = new GameScore.Builder().Build();
         }
 
         #endregion
@@ -62,6 +76,8 @@ namespace TempIsolated.Games.Www
         #region Events
 
         public event EventHandler<ItemEventArgs<QuestionDrawing>> DrawingAdded = delegate { };
+
+        public event EventHandler<ItemEventArgs<GameScore>> ScoreUpdated = delegate { };
 
         #endregion
 
@@ -71,6 +87,12 @@ namespace TempIsolated.Games.Www
         {
             var args = new ItemEventArgs<QuestionDrawing>(drawing);
             DrawingAdded(this, args);
+        }
+
+        private void OnScoreUpdated(GameScore updatedScore)
+        {
+            var args = new ItemEventArgs<GameScore>(updatedScore);
+            ScoreUpdated(this, args);
         }
 
         #endregion
@@ -85,6 +107,22 @@ namespace TempIsolated.Games.Www
             {
                 drawings.Add(drawing);
                 OnDrawingAdded(drawing);
+            }
+        }
+
+        public void UpdateScore()
+        {
+            lock (sync)
+            {
+                var scoreBuilder = new GameScore.Builder();
+
+                foreach (var drawing in drawings)
+                {
+                    scoreBuilder.AddAnswers(drawing.Answers);                    
+                }
+
+                score = scoreBuilder.Build();
+                OnScoreUpdated(score);
             }
         }
 

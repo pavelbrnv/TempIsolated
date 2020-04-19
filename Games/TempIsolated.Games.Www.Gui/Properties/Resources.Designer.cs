@@ -149,5 +149,14 @@ namespace TempIsolated.Games.Www.Gui.Properties {
                 return ResourceManager.GetString("Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Обновить счет.
+        /// </summary>
+        public static string UpdateScore {
+            get {
+                return ResourceManager.GetString("UpdateScore", resourceCulture);
+            }
+        }
     }
 }

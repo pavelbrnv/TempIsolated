@@ -147,4 +147,7 @@
   <data name="Title" xml:space="preserve">
     <value>Заголовок</value>
   </data>
+  <data name="UpdateScore" xml:space="preserve">
+    <value>Обновить счет</value>
+  </data>
 </root>

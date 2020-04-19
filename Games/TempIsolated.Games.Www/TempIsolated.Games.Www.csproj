@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Answer.cs" />
     <Compile Include="DrawingState.cs" />
+    <Compile Include="GameScore.cs" />
     <Compile Include="IGameClient.cs" />
     <Compile Include="IGameServer.cs" />
     <Compile Include="Interaction\InternalGameClient.cs" />

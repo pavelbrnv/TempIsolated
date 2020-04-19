@@ -53,7 +53,11 @@ namespace TempIsolated.Games.Www.ViewModels
             }
         }
 
+        public GameScore Score => Leader.Score;
+
         public ICommand CommandPlaySelectedQuestions { get; }
+
+        public ICommand CommandUpdateScore { get; }
 
         #endregion
 
@@ -76,6 +80,7 @@ namespace TempIsolated.Games.Www.ViewModels
             DrawingsVms = new ReadOnlyObservableCollection<QuestionDrawingVm>(drawingsVms);
 
             CommandPlaySelectedQuestions = new ActionCommand(PlaySelectedQuestions);
+            CommandUpdateScore = new ActionCommand(Leader.UpdateScore);
 
             Initialize();
         }
@@ -143,11 +148,13 @@ namespace TempIsolated.Games.Www.ViewModels
             {
                 Leader.Server.PlayersChanged += ServerPlayersChanged;
                 Leader.DrawingAdded += LeaderDrawingAdded;
+                Leader.ScoreUpdated += LeaderScoreUpdated;
             }
             else
             {
                 Leader.Server.PlayersChanged -= ServerPlayersChanged;
                 Leader.DrawingAdded -= LeaderDrawingAdded;
+                Leader.ScoreUpdated -= LeaderScoreUpdated;
             }
         }
 
@@ -181,6 +188,11 @@ namespace TempIsolated.Games.Www.ViewModels
         private void LeaderDrawingAdded(object sender, ItemEventArgs<QuestionDrawing> e)
         {
             AddDrawingVm(e.Item);
+        }
+
+        private void LeaderScoreUpdated(object sender, ItemEventArgs<GameScore> e)
+        {
+            RaisePropertyChanged(nameof(Score));
         }
 
         #endregion

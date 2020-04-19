@@ -48,6 +48,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameScoreControl.xaml.cs">
+      <DependentUpon>GameScoreControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Interaction\InternalGameClientControl.xaml.cs">
       <DependentUpon>InternalGameClientControl.xaml</DependentUpon>
     </Compile>
@@ -102,6 +105,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="GameScoreControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Interaction\InternalGameClientControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
