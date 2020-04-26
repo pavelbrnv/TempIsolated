@@ -27,7 +27,7 @@ namespace TempIsolated.Games.Www
 
         public Mode Create()
         {
-            return new WwwPlayer(createClient(), logger);
+            return new WwwPlayer(createClient());
         }
 
         public ModeVm CreateVm(Mode mode)

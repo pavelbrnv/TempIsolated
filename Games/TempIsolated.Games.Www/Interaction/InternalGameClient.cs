@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using TempIsolated.Common.Extensions;
@@ -78,7 +75,7 @@ namespace TempIsolated.Games.Www.Interaction
             {
                 using (cancellationToken.Register(() => tcs.TrySetCanceled()))
                 {
-                    using (new Timer(args => tcs.TrySetCanceled(), null, TimeSpan.Zero, question.ThinkingTime + question.FillTime))
+                    using (new Timer(args => tcs.TrySetCanceled(), null, question.ThinkingTime + question.FillTime, TimeSpan.FromMilliseconds(-1)))
                     {
                         OnQuestionAsked(questionAnswering);
                         return await tcs.Task;

@@ -65,6 +65,7 @@
     <Compile Include="QuestionDrawing.cs" />
     <Compile Include="QuestionAnswers.cs" />
     <Compile Include="ViewModels\PlayerAnswerVm.cs" />
+    <Compile Include="ViewModels\QuestionAnsweringVm.cs" />
     <Compile Include="ViewModels\QuestionAnswersVm.cs" />
     <Compile Include="ViewModels\QuestionDrawingVm.cs" />
     <Compile Include="ViewModels\SelectablePlayerVm.cs" />
