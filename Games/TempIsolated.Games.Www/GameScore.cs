@@ -37,7 +37,28 @@ namespace TempIsolated.Games.Www
 
             public GameScore Build()
             {
-                return new GameScore(playersNames.ToArray(), questionsScores);
+                var scores = new List<QuestionScore>(questionsScores)
+                {
+                    CreateTotalScore()
+                };
+                return new GameScore(playersNames.ToArray(), scores);
+            }
+
+            private QuestionScore CreateTotalScore()
+            {
+                var totalScore = new QuestionScore(Properties.Resources.TotalScore);
+
+                foreach (var playerName in playersNames)
+                {
+                    var playerScore = 0;
+                    foreach (var questionScore in questionsScores)
+                    {
+                        playerScore += questionScore[playerName];
+                    }
+                    totalScore.SetPlayerScore(playerName, playerScore);
+                }
+
+                return totalScore;
             }
         }
     }    

@@ -124,6 +124,15 @@ namespace TempIsolated.Games.Www.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на ИТОГО.
+        /// </summary>
+        public static string TotalScore {
+            get {
+                return ResourceManager.GetString("TotalScore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ожидание.
         /// </summary>
         public static string Waiting {

@@ -138,6 +138,9 @@
   <data name="StopDrawing" xml:space="preserve">
     <value>Прервать розыгрыш</value>
   </data>
+  <data name="TotalScore" xml:space="preserve">
+    <value>ИТОГО</value>
+  </data>
   <data name="Waiting" xml:space="preserve">
     <value>Ожидание</value>
   </data>
