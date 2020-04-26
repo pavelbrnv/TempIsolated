@@ -89,9 +89,20 @@ namespace TempIsolated.Games.Www.Interaction
 
         public async Task<Answer> AskPlayer(User player, Question question, CancellationToken cancellationToken)
         {
-            await Task.Delay(5000, cancellationToken);
+            Contracts.Requires(player != null);
 
-            return new Answer("dummy answer");
+            InternalGameClient gameClient;
+            lock (sync)
+            {
+                gameClient = clients.FirstOrDefault(client => client.Player.Id == player.Id);
+            }
+
+            if (gameClient == null)
+            {
+                throw new InvalidOperationException($"Unknown player {player.Name}");
+            }
+
+            return await gameClient.AskQuestion(question, cancellationToken);
         }
 
         #endregion

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using TempIsolated.Common.Extensions;
 using TempIsolated.Core;
@@ -39,6 +40,55 @@ namespace TempIsolated.Games.Www.Interaction
         public void Init()
         {
             server.AddClient(this);
+        }
+
+        #endregion
+
+        #region Events
+
+        public event EventHandler<ItemEventArgs<QuestionAnswering>> QuestionAsked = delegate { };
+
+        #endregion
+
+        #region Events raisers
+
+        private void OnQuestionAsked(QuestionAnswering questionAnswering)
+        {
+            var args = new ItemEventArgs<QuestionAnswering>(questionAnswering);
+            QuestionAsked(this, args);
+        }
+
+        #endregion
+
+        #region Internal methods
+
+        internal async Task<Answer> AskQuestion(Question question, CancellationToken cancellationToken)
+        {
+            var questionAnswering = new QuestionAnswering(question);
+
+            var tcs = new TaskCompletionSource<Answer>(TaskCreationOptions.RunContinuationsAsynchronously);
+
+            void Handler(object sender, ItemEventArgs<Answer> e)
+            {
+                tcs.SetResult(e.Item);
+            }
+
+            questionAnswering.AnswerSet += Handler;
+            try
+            {
+                using (cancellationToken.Register(() => tcs.TrySetCanceled()))
+                {
+                    using (new Timer(args => tcs.TrySetCanceled(), null, TimeSpan.Zero, question.ThinkingTime + question.FillTime))
+                    {
+                        OnQuestionAsked(questionAnswering);
+                        return await tcs.Task;
+                    }
+                }                
+            }
+            finally
+            {
+                questionAnswering.AnswerSet -= Handler;
+            }
         }
 
         #endregion
