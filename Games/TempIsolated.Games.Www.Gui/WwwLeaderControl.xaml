@@ -3,10 +3,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:TempIsolated.Games.Www.ViewModels;assembly=TempIsolated.Games.Www"
              xmlns:converters="clr-namespace:TempIsolated.Common.Gui.Converters;assembly=TempIsolated.Common.Gui"
-             xmlns:p="clr-namespace:TempIsolated.Games.Www.Gui.Properties"
              xmlns:local="clr-namespace:TempIsolated.Games.Www.Gui"
+             xmlns:p="clr-namespace:TempIsolated.Games.Www.Gui.Properties"
+             xmlns:vm="clr-namespace:TempIsolated.Games.Www.ViewModels;assembly=TempIsolated.Games.Www"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:WwwLeaderVm}">
 

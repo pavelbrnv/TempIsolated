@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TempIsolated.Games.Www
+﻿namespace TempIsolated.Games.Www
 {
     public sealed class Answer
     {
@@ -12,7 +6,7 @@ namespace TempIsolated.Games.Www
 
         public Answer(string text)
         {
-            Text = text;
+            Text = text ?? string.Empty;
         }
     }
 }

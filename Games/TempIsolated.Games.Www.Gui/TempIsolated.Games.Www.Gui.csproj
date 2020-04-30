@@ -65,6 +65,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="QuestionAnsweringControl.xaml.cs">
+      <DependentUpon>QuestionAnsweringControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="QuestionAnswersControl.xaml.cs">
       <DependentUpon>QuestionAnswersControl.xaml</DependentUpon>
     </Compile>
@@ -114,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Interaction\InternalGameServerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="QuestionAnsweringControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

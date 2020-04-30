@@ -107,7 +107,7 @@ namespace TempIsolated.Games.Www.ViewModels
 
         private void AddDrawingVm(QuestionDrawing drawing)
         {
-            var drawingVm = new QuestionDrawingVm(drawing);
+            var drawingVm = new QuestionDrawingVm(drawing, logger);
             drawingsVms.Add(drawingVm);
         }
 

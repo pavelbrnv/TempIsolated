@@ -1,9 +1,10 @@
 ﻿<UserControl x:Class="TempIsolated.Games.Www.Gui.WwwPlayerControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:converters="clr-namespace:TempIsolated.Common.Gui.Converters;assembly=TempIsolated.Common.Gui"
+             xmlns:local="clr-namespace:TempIsolated.Games.Www.Gui"
              xmlns:vm="clr-namespace:TempIsolated.Games.Www.ViewModels;assembly=TempIsolated.Games.Www"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:WwwPlayerVm}">
@@ -25,15 +26,35 @@
         <ContentPresenter Grid.Row="0"
                           Content="{Binding ClientVm}" />
 
-        <ListBox Grid.Row="1"
-                 ItemsSource="{Binding AnsweringsVms, Converter={x:Static converters:DispatcherCollectionConverter.Instance}}"
-                 SelectionMode="Single"
-                 Margin="{StaticResource AllMargin}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Title}" />
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="5*" />
+            </Grid.ColumnDefinitions>
+
+            <ListBox Grid.Column="0"
+                     ItemsSource="{Binding AnsweringsVms, Converter={x:Static converters:DispatcherCollectionConverter.Instance}}"
+                     SelectedItem="{Binding SelectedAnsweringVm}"
+                     SelectionMode="Single"
+                     Margin="{StaticResource AllMargin}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Title}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <GridSplitter Grid.Column="1"
+                          VerticalAlignment="Stretch"
+                          HorizontalAlignment="Center"
+                          Width="{StaticResource SmallMarginStep}" />
+
+            <Grid Grid.Column="2"
+                  Margin="{StaticResource AllMargin}"
+                  Visibility="{Binding SelectedAnsweringVm, Converter={x:Static converters:NullToVisibilityConverter.Instance}}">
+                <local:QuestionAnsweringControl DataContext="{Binding SelectedAnsweringVm}" />
+            </Grid>
+        </Grid>
     </Grid>    
 </UserControl>

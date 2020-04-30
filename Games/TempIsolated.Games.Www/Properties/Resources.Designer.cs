@@ -106,6 +106,15 @@ namespace TempIsolated.Games.Www.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ответить!.
+        /// </summary>
+        public static string SetAnswer {
+            get {
+                return ResourceManager.GetString("SetAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Начать розыгрыш.
         /// </summary>
         public static string StartDrawing {

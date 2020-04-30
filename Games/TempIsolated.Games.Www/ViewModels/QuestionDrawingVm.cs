@@ -1,15 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TempIsolated.Common.Extensions;
 using TempIsolated.Common.Extensions.ViewModels;
+using TempIsolated.Common.Informing;
 
 namespace TempIsolated.Games.Www.ViewModels
 {
     public sealed class QuestionDrawingVm : ObservingVm<QuestionDrawing>
     {
+        #region Fields
+
+        private readonly ILogger logger;
+
+        #endregion
+
         #region Properties
 
         public string Title => Model.Question.Title;
@@ -32,10 +35,13 @@ namespace TempIsolated.Games.Www.ViewModels
 
         #region Ctor
 
-        public QuestionDrawingVm(QuestionDrawing drawing)
+        public QuestionDrawingVm(QuestionDrawing drawing, ILogger logger)
             : base(drawing)
         {
             Contracts.Requires(drawing != null);
+            Contracts.Requires(logger != null);
+
+            this.logger = logger;
 
             CommandStartDrawing = new ActionCommand(StartDrawing, Properties.Resources.StartDrawing);
             CommandStopDrawing = new ActionCommand(StopDrawing, Properties.Resources.StopDrawing);
@@ -51,17 +57,31 @@ namespace TempIsolated.Games.Www.ViewModels
 
         private void StartDrawing()
         {
-            if (IsStartDrawingAvailable)
+            try
             {
-                Model.StartDrawing();
+                if (IsStartDrawingAvailable)
+                {
+                    Model.StartDrawing();
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogError("Error while drawing starting", e);
             }
         }
 
         private void StopDrawing()
         {
-            if (IsStopDrawingAvailable)
+            try
             {
-                Model.StopDrawing();
+                if (IsStopDrawingAvailable)
+                {
+                    Model.StopDrawing();
+                }
+            }
+            catch (Exception e)
+            {
+                logger.LogError("Error while drawing stopping", e);
             }
         }
 

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TempIsolated.Common.Extensions;
 using TempIsolated.Common.Informing;
 using TempIsolated.Core.ViewModels;
@@ -16,6 +12,7 @@ namespace TempIsolated.Games.Www.ViewModels
         #region Fields
 
         private readonly ObservableCollection<QuestionAnsweringVm> answeringsVms = new ObservableCollection<QuestionAnsweringVm>();
+        private QuestionAnsweringVm selectedAnsweringVm;
 
         private readonly ILogger logger;
 
@@ -32,6 +29,19 @@ namespace TempIsolated.Games.Www.ViewModels
         public GameClientVm ClientVm { get; }
 
         public ReadOnlyObservableCollection<QuestionAnsweringVm> AnsweringsVms { get; }
+
+        public QuestionAnsweringVm SelectedAnsweringVm
+        {
+            get => selectedAnsweringVm;
+            set
+            {
+                if (selectedAnsweringVm != value)
+                {
+                    selectedAnsweringVm = value;
+                    RaisePropertyChanged(nameof(SelectedAnsweringVm));
+                }
+            }
+        }
 
         #endregion
 
@@ -65,8 +75,10 @@ namespace TempIsolated.Games.Www.ViewModels
                     return;
                 }
 
-                var answeringVm = new QuestionAnsweringVm(answering);
+                var answeringVm = new QuestionAnsweringVm(answering, logger);
                 answeringsVms.Add(answeringVm);
+
+                SelectedAnsweringVm = answeringVm;
             }
         }
 
@@ -74,6 +86,8 @@ namespace TempIsolated.Games.Www.ViewModels
         {
             lock (sync)
             {
+                SelectedAnsweringVm = null;
+
                 var currentAnsweringsVms = answeringsVms.ToArray();
                 answeringsVms.Clear();
                 foreach (var answeringVm in currentAnsweringsVms)
