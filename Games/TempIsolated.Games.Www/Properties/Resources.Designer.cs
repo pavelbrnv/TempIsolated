@@ -88,11 +88,29 @@ namespace TempIsolated.Games.Www.Properties {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Пиши ответ скорее!!!.
+        /// </summary>
+        public static string FillAnswer {
+            get {
+                return ResourceManager.GetString("FillAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ведущий.
         /// </summary>
         public static string Leader {
             get {
                 return ResourceManager.GetString("Leader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Ответа не дождался....
+        /// </summary>
+        public static string NoAnswer {
+            get {
+                return ResourceManager.GetString("NoAnswer", resourceCulture);
             }
         }
         
@@ -129,6 +147,15 @@ namespace TempIsolated.Games.Www.Properties {
         public static string StopDrawing {
             get {
                 return ResourceManager.GetString("StopDrawing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Давай думай.
+        /// </summary>
+        public static string Think {
+            get {
+                return ResourceManager.GetString("Think", resourceCulture);
             }
         }
         

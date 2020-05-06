@@ -53,6 +53,7 @@
     <Compile Include="Extensions\ViewModels\NotifyUtils.cs" />
     <Compile Include="Extensions\ValueChangedEventArgs.cs" />
     <Compile Include="Extensions\ViewModels\ObservingVm.cs" />
+    <Compile Include="Extensions\ViewModels\TimerVm.cs" />
     <Compile Include="Informing\ExceptionToStringConverter.cs" />
     <Compile Include="Informing\ILogger.cs" />
     <Compile Include="Informing\LoggerExtensions.cs" />

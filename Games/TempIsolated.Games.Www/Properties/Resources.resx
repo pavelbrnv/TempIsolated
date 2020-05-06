@@ -126,8 +126,14 @@
   <data name="Drawn" xml:space="preserve">
     <value>Разыгран</value>
   </data>
+  <data name="FillAnswer" xml:space="preserve">
+    <value>Пиши ответ скорее!!!</value>
+  </data>
   <data name="Leader" xml:space="preserve">
     <value>Ведущий</value>
+  </data>
+  <data name="NoAnswer" xml:space="preserve">
+    <value>Ответа не дождался...</value>
   </data>
   <data name="Player" xml:space="preserve">
     <value>Игрок</value>
@@ -140,6 +146,9 @@
   </data>
   <data name="StopDrawing" xml:space="preserve">
     <value>Прервать розыгрыш</value>
+  </data>
+  <data name="Think" xml:space="preserve">
+    <value>Давай думай</value>
   </data>
   <data name="TotalScore" xml:space="preserve">
     <value>ИТОГО</value>

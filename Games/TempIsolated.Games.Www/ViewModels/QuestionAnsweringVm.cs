@@ -9,10 +9,16 @@ namespace TempIsolated.Games.Www.ViewModels
     {
         #region Fields
 
+        private string timerText;
+        private bool showThinkingTimer;
+        private bool showFillingTimer;
+
         private bool canAnswer = true;
         private string answerText;
 
         private readonly ILogger logger;
+
+        private readonly object sync = new object();
 
         #endregion
 
@@ -21,6 +27,40 @@ namespace TempIsolated.Games.Www.ViewModels
         public string Title => Model.Question.Title;
 
         public string QuestionText => Model.Question.Text;
+
+        public string TimerText
+        {
+            get => timerText;
+            private set
+            {
+                timerText = value;
+                RaisePropertyChanged(nameof(TimerText));
+            }
+        }
+
+        public TimerVm ThinkingTimerVm { get; }
+
+        public bool ShowThinkingTimer
+        {
+            get => showThinkingTimer;
+            private set
+            {
+                showThinkingTimer = value;
+                RaisePropertyChanged(nameof(ShowThinkingTimer));
+            }
+        }
+
+        public TimerVm FillingTimerVm { get; }
+
+        public bool ShowFillingTimer
+        {
+            get => showFillingTimer;
+            private set
+            {
+                showFillingTimer = value;
+                RaisePropertyChanged(nameof(ShowFillingTimer));
+            }
+        }
 
         public bool CanAnswer
         {
@@ -56,30 +96,88 @@ namespace TempIsolated.Games.Www.ViewModels
 
             this.logger = logger;
 
+            TimerText = Properties.Resources.Think;
+
+            ThinkingTimerVm = new TimerVm(answering.Question.ThinkingTime, TimeSpan.FromSeconds(1), ChangeThinkingTimerToFilling);
+            ShowThinkingTimer = true;
+
+            FillingTimerVm = new TimerVm(answering.Question.FillTime, TimeSpan.FromSeconds(1), SetNoAnswer);
+            ShowFillingTimer = false;
+
             CommandSetAnswer = new ActionCommand(SetAnswer, Properties.Resources.SetAnswer);
 
             Initialize();
+
+            ThinkingTimerVm.Start();
         }
 
         #endregion
 
-        #region Commands actions
+        #region Private methods
 
-        private void SetAnswer()
+        private void ChangeThinkingTimerToFilling()
         {
-            try
+            lock (sync)
             {
                 if (!CanAnswer)
                 {
                     return;
                 }
 
-                Model.SetAnswer(new Answer(AnswerText));
+                ShowThinkingTimer = false;
+                ShowFillingTimer = true;
+
+                TimerText = Properties.Resources.FillAnswer;                              
+
+                FillingTimerVm.Start();
+            }
+        }
+
+        private void SetNoAnswer()
+        {
+            lock (sync)
+            {
+                if (!CanAnswer)
+                {
+                    return;
+                }
+
+                ShowThinkingTimer = false;
+                ShowFillingTimer = false;
+
+                TimerText = Properties.Resources.NoAnswer;
+
                 CanAnswer = false;
             }
-            catch (Exception e)
+        }
+
+        private void SetAnswer()
+        {
+            lock (sync)
             {
-                logger.LogError("Error while setting answer", e);
+                try
+                {
+                    if (!CanAnswer)
+                    {
+                        return;
+                    }
+
+                    ThinkingTimerVm.Stop();
+                    FillingTimerVm.Stop();
+
+                    ShowThinkingTimer = false;
+                    ShowFillingTimer = false;
+
+                    TimerText = string.Empty;
+
+                    Model.SetAnswer(new Answer(AnswerText));
+
+                    CanAnswer = false;
+                }
+                catch (Exception e)
+                {
+                    logger.LogError("Error while setting answer", e);
+                }
             }
         }
 
@@ -89,6 +187,18 @@ namespace TempIsolated.Games.Www.ViewModels
 
         protected override void SubscribeModel(bool subscribe)
         {
+        }
+
+        #endregion
+
+        #region Disposing
+
+        protected override void DisposeResources()
+        {
+            FillingTimerVm.Dispose();
+            ThinkingTimerVm.Dispose();
+
+            base.DisposeResources();
         }
 
         #endregion

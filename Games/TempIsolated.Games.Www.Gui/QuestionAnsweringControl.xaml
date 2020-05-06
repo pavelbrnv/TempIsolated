@@ -1,8 +1,9 @@
 ﻿<UserControl x:Class="TempIsolated.Games.Www.Gui.QuestionAnsweringControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:TempIsolated.Common.Gui.Converters;assembly=TempIsolated.Common.Gui"
              xmlns:vm="clr-namespace:TempIsolated.Games.Www.ViewModels;assembly=TempIsolated.Games.Www"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=vm:QuestionAnsweringVm}">
@@ -38,6 +39,26 @@
                     IsEnabled="{Binding CanAnswer}"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Center">
+            <TextBlock Text="{Binding TimerText}"
+                       FontSize="25"
+                       HorizontalAlignment="Center" />
+
+            <Grid Height="30">
+                <TextBlock Text="{Binding ThinkingTimerVm.Text}"
+                           Foreground="Green"
+                           FontSize="25"
+                           Visibility="{Binding ShowThinkingTimer, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+
+                <TextBlock Text="{Binding FillingTimerVm.Text}"
+                           Foreground="Red"
+                           FontSize="25"
+                           Visibility="{Binding ShowFillingTimer, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+            </Grid>
+
             <TextBox Text="{Binding AnswerText}"
                      Margin="{StaticResource AllMargin}"
                      HorizontalAlignment="Stretch" />
