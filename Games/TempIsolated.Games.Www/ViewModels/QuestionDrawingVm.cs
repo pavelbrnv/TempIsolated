@@ -9,6 +9,8 @@ namespace TempIsolated.Games.Www.ViewModels
     {
         #region Fields
 
+        private bool showDrawingTimer;
+
         private readonly ILogger logger;
 
         #endregion
@@ -20,6 +22,18 @@ namespace TempIsolated.Games.Www.ViewModels
         public string QuestionText => Model.Question.Text;
 
         public string State => Properties.Resources.ResourceManager.TryLocalize(Model.State);
+
+        public TimerVm DrawingTimerVm { get; }
+
+        public bool ShowDrawingTimer
+        {
+            get => showDrawingTimer;
+            private set
+            {
+                showDrawingTimer = value;
+                RaisePropertyChanged(nameof(ShowDrawingTimer));
+            }
+        }
 
         public ActionCommand CommandStartDrawing { get; }
 
@@ -42,6 +56,8 @@ namespace TempIsolated.Games.Www.ViewModels
             Contracts.Requires(logger != null);
 
             this.logger = logger;
+
+            DrawingTimerVm = new TimerVm(drawing.Question.ThinkingTime + drawing.Question.FillTime, TimeSpan.FromSeconds(1));
 
             CommandStartDrawing = new ActionCommand(StartDrawing, Properties.Resources.StartDrawing);
             CommandStopDrawing = new ActionCommand(StopDrawing, Properties.Resources.StopDrawing);
@@ -103,6 +119,17 @@ namespace TempIsolated.Games.Www.ViewModels
 
         private void ModelStateChanged(object sender, ValueChangedEventArgs<DrawingState> e)
         {
+            if (e.NewValue == DrawingState.Drawing)
+            {
+                ShowDrawingTimer = true;
+                DrawingTimerVm.Start();
+            }
+            else
+            {
+                DrawingTimerVm.Stop();
+                ShowDrawingTimer = false;                
+            }
+
             RaisePropertyChanged(nameof(State));
             RaisePropertyChanged(nameof(IsStartDrawingAvailable));
             RaisePropertyChanged(nameof(IsStopDrawingAvailable));
@@ -114,6 +141,8 @@ namespace TempIsolated.Games.Www.ViewModels
 
         protected override void DisposeResources()
         {
+            DrawingTimerVm.Dispose();
+
             AnswersVm.Dispose();
 
             base.DisposeResources();

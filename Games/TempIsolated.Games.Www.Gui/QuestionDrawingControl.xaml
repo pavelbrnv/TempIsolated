@@ -33,6 +33,7 @@
             <Grid Height="50">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="50" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
@@ -43,13 +44,19 @@
                            Margin="{StaticResource AllMargin}"
                            VerticalAlignment="Center" />
 
-                <Button Grid.Column="1"
+                <TextBlock Grid.Column="1"
+                           Text="{Binding DrawingTimerVm.Text}"
+                           Visibility="{Binding ShowDrawingTimer, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
+                           Margin="{StaticResource AllMargin}"
+                           VerticalAlignment="Center" />
+
+                <Button Grid.Column="2"
                         Command="{Binding CommandStartDrawing}"
                         Content="{Binding CommandStartDrawing.PublicName}"
                         Visibility="{Binding IsStartDrawingAvailable, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
                         Margin="{StaticResource AllMargin}" />
 
-                <Button Grid.Column="1"
+                <Button Grid.Column="2"
                         Command="{Binding CommandStopDrawing}"
                         Content="{Binding CommandStopDrawing.PublicName}"
                         Visibility="{Binding IsStopDrawingAvailable, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
